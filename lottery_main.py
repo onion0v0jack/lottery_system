@@ -14,7 +14,16 @@ pd.options.mode.chained_assignment = None
 sg.ChangeLookAndFeel('GreenTan')
 
 config = configparser.ConfigParser()
-config.read('config.ini', encoding = 'utf-8')
+try:
+    config.read('config.ini')
+except:
+    try:
+        config.read('config.ini', encoding = 'utf-8')
+    except:
+        try:
+            config.read('config.ini', encoding = 'utf-8-sig')
+        except:
+            sg.PopupOK('請改config.ini的編碼，以utf-8為佳。', font = ('Microsoft YaHei', 10))
 savefilepath = config['DEFAULT']['savefilepath'] if len(config['DEFAULT']['savefilepath']) > 0 else None
 mode_member, mode_prize = 0, 0
 count = 0
